@@ -1,0 +1,144 @@
+version: '3'
+
+networks:
+  example-network:
+    name: example-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+
+services:
+
+  gateway:
+    image: gateway:latest
+    ports:
+      - "5050:5050"
+    environment:
+      cma_host: http://localhost:3010
+      cr_host: http://localhost:4000
+    depends_on:
+      - cma
+      - cr
+      - redis-master
+    networks:
+      - example-network
+
+  cma:
+    image: cma:latest
+    # deploy:
+    #   mode: replicated
+    #   replicas: 3
+    ports:
+      - "3010:3010"
+    networks:
+      - example-network
+      # example-network:
+      #    ipv4_address: 172.18.0.6
+    environment:
+      - PORT=3010
+
+  cma2:
+    image: cma:latest
+    ports:
+      - "3011:3011"
+    networks:
+      - example-network
+      # example-network:
+      #   ipv4_address: 172.18.0.7
+    environment:
+      - PORT=3011
+
+  cma3:
+    image: cma:latest
+    ports:
+      - "3012:3012"
+    networks:
+      - example-network
+      # example-network:
+      #   ipv4_address: 172.18.0.8
+    environment:
+      - PORT=3012
+
+  cr:
+    image: cr
+    # deploy:
+    #   mode: replicated
+    #   replicas: 3
+    ports:
+      - "4000:4000"
+    networks:
+      - example-network
+      # example-network:
+      #    ipv4_address: 172.18.0.9
+    environment:
+      - PORT=4000
+
+  cr2:
+    image: cr
+    ports:
+      - "4001:4001"
+    networks:
+      - example-network
+      # example-network:
+      #    ipv4_address: 172.18.0.10
+    environment:
+      - PORT=4001
+
+  cr3:
+    image: cr
+    ports:
+      - "4002:4002"
+    networks:
+      - example-network
+      # example-network:
+      #    ipv4_address: 172.18.0.11
+    environment:
+      - PORT=4002
+
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/cma.conf:ro
+      - ./nginx:/etc/nginx/cr.conf:ro
+
+
+  redis-master:
+    image: 'redis:latest'
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./redis-master-data:/data
+    ports:
+      - '6379:6379'
+    networks:
+      - example-network
+
+  redis-slave:
+    image: 'redis:latest'
+    command: ['redis-server', '--appendonly', 'yes', '--slaveof', 'redis-master', '6379']
+    volumes:
+      - ./redis-slave-data:/data
+    ports:
+      - '6380:6379'
+    depends_on:
+      - redis-master
+    networks:
+      - example-network
+
+  redis-slave2:
+    image: 'redis:latest'
+    command: ['redis-server', '--appendonly', 'yes', '--slaveof', 'redis-master', '6379']
+    volumes:
+      - ./redis-slave-data:/data
+    ports:
+      - '6381:6379'
+    depends_on:
+      - redis-master
+    networks:
+      - example-network
+
+

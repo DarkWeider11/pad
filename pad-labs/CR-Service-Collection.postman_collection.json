@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "22333864-30ac-4d8b-9be4-db7e95d7a27b",
+		"name": "CR-Service-Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17878143"
+	},
+	"item": [
+		{
+			"name": "CRUD for content",
+			"item": [
+				{
+					"name": "GET content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/contents/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"contents",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all contents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post content",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"contentId\": \"12345\",\n  \"title\": \"Example Movie\",\n  \"rating\": 4.5,\n  \"genre\": \"Action\",\n  \"cast\": [\"Actor 1\", \"Actress 1\", \"Actor 2\"],\n  \"release_year\": 2022\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT content",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentId\": \"12345\",\n    \"title\": \"Avengers\",\n    \"rating\": 4.5,\n    \"genre\": [\n        \"Action\",\n        \"SF\"\n    ],\n    \"cast\": [\n        \"Downey Jr.\",\n        \"Chriss\",\n        \"Natasha\"\n    ],\n    \"release_year\": 2022,\n    \"__v\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/contents/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"contents",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE content",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/contents/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"contents",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recomendations",
+			"item": [
+				{
+					"name": "GET recommendation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/recommendations/user123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"recommendations",
+								"user123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/recommendations/user123/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"recommendations",
+								"user123",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
